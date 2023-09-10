@@ -1,14 +1,20 @@
-const currentDayOfTheWeek = document.querySelector('[data-testid="currentDayOfTheWeek"]');
-const currentUTCTime = document.querySelector('[data-testid="currentUTCTime"]');
 
-const date = new Date();
-console.log(date);
+function utcTime() {
+  let days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+  let currentDay = document.querySelector('[data-testid="currentDayOfTheWeek"]');
+  let currentTime = document.querySelector('[data-testid="currentUTCTime"]');
+  const setValue = (current, val) => {	current.innerHTML = val }
+  setValue(currentDay, days[new Date().getUTCDay()])
+window.setInterval(()=> {
+  setValue(currentDay, days[new Date().getUTCDay()])
+}, 1000)
+const timer = () => {
+  window.setInterval(() => {
+    setValue(currentTime, Date.now())
+    }, 100)
+ }
+timer()
 
-// Get UTC time in milliseconds
-const getUTC = date.getUTCMilliseconds();
-currentUTCTime.innerHTML = getUTC;
+}
 
-// Get current day of the week
-const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-const getCurrentDay = weekday[date.getDay()];
-currentDayOfTheWeek.innerHTML = getCurrentDay;
+window.addEventListener('DOMContentLoaded', (event) => { utcTime() });
